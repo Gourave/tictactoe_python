@@ -3,7 +3,6 @@ def print_board(board):
     for row in board:
         print (" ").join(row)
 
-
 if __name__ == "__main__":
     # Setup the game board
     board = []
@@ -26,9 +25,11 @@ if __name__ == "__main__":
     if game_choice == "player":
         print "Playing against another player"
         # Put code here for multiplayer game
+        # Create class for the multiplayer game
     else:
         print "Playing against the computer"
         # Put code here for Ai game
+        # Create class for Ai game
 
     # Prints the game board out
     print_board(board)
