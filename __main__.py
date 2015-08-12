@@ -4,7 +4,24 @@ def print_board(board):
         print " ".join(row)
 
 # Check to see whether there is a winner or not
-def winner(board):
+def winner(board, magic_square):
+    player_one_score = 0
+    player_two_score = 0
+    # TODO: n^2 loop not working currently, need to fix
+    for row in range(0, len(board) - 1):
+        for col in range(0, len(board) - 1):
+            if board[row][col] == "X":
+                player_one_score += magic_square[row][col]
+            elif board[row][col] == "O":
+                player_two_score += magic_square[row][col]
+
+    if player_one_score == 15:
+        print "Player 1 wins!"
+        return True
+    elif player_two_score == 15:
+        print "Player 2 wins!"
+        return True
+
     return False
 
 # Prompt the user to make a move and take up the spot that was specified by
@@ -16,7 +33,12 @@ def make_move(board, player):
         row = int(raw_input("Row: "))
     while not (-1 < col < 3):
         col = int(raw_input("Col: "))
-    board[row][col] = player
+    if board[row][col] != "-":
+        print "This place has already been taken up. Please choose another spot."
+        print_board(board)
+        make_move(board, player)
+    else:
+        board[row][col] = player
 
 if __name__ == "__main__":
     # Setup the game board
@@ -47,7 +69,7 @@ if __name__ == "__main__":
 
         print_board(board)
 
-        while not winner(board):
+        while not winner(board, magic_square):
             if player_one_turn:
                 print "Player 1's turn"
                 make_move(board, player_one)
