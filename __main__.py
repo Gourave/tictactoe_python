@@ -7,14 +7,14 @@ def print_board(board):
 def winner(board, magic_square):
     player_one_score = 0
     player_two_score = 0
-    # TODO: n^2 loop not working currently, need to fix
-    for row in range(0, len(board) - 1):
-        for col in range(0, len(board) - 1):
+    for row in range(0, len(board)):
+        for col in range(0, len(board)):
             if board[row][col] == "X":
                 player_one_score += magic_square[row][col]
             elif board[row][col] == "O":
                 player_two_score += magic_square[row][col]
 
+    # TODO: Issue is due to the if statement below
     if player_one_score == 15:
         print "Player 1 wins!"
         return True
