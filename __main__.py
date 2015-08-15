@@ -4,7 +4,14 @@ def print_board(board):
         print " ".join(row)
 
 # Check to see whether there is a winner or not
+# TODO: Clean up the if loops, im not feeling the code...
 def winner(board, magic_square):
+    if not check_horizontal(board, magic_square):
+        if not check_vertical(board, magic_square):
+            # Put code here to check diagonal and anti-diagonal lines
+            return False
+
+def check_horizontal(board, magic_square):
     player_one_score = 0
     player_two_score = 0
     for row in range(0, len(board)):
@@ -13,7 +20,6 @@ def winner(board, magic_square):
                 player_one_score += magic_square[row][col]
             elif board[row][col] == "O":
                 player_two_score += magic_square[row][col]
-
     # TODO: Issue is due to the if statement below
     if player_one_score == 15:
         print "Player 1 wins!"
@@ -21,8 +27,26 @@ def winner(board, magic_square):
     elif player_two_score == 15:
         print "Player 2 wins!"
         return True
-
     return False
+
+def check_vertical(board, magic_square):
+    player_one_score = 0
+    player_two_score = 0
+    for col in range(0, len(board)):
+        for row in range(0, len(board)):
+            if board[row][col] == "X":
+                player_one_score += magic_square[row][col]
+            elif board[row][col] == "O":
+                player_two_score += magic_square[row][col]
+    # TODO: Issue is due to the if statement below
+    if player_one_score == 15:
+        print "Player 1 wins!"
+        return True
+    elif player_two_score == 15:
+        print "Player 2 wins!"
+        return True
+    return False
+
 
 # Prompt the user to make a move and take up the spot that was specified by
 # the players piece
