@@ -6,10 +6,9 @@ def print_board(board):
 # Check to see whether there is a winner or not
 # TODO: Clean up the if loops, im not feeling the code...
 def winner(board, magic_square):
-    if not check_horizontal(board, magic_square):
-        if not check_vertical(board, magic_square):
-            # Put code here to check diagonal and anti-diagonal lines
-            return False
+    # Put code here to check diagonal and anti-diagonal lines
+    return check_horizontal(board, magic_square) or check_vertical(board, magic_square) \
+           or check_diagonal(board, magic_square) or check_anti_diagonal(board, magic_square)
 
 def check_horizontal(board, magic_square):
     player_one_score = 0
@@ -38,7 +37,38 @@ def check_vertical(board, magic_square):
                 player_one_score += magic_square[row][col]
             elif board[row][col] == "O":
                 player_two_score += magic_square[row][col]
-    # TODO: Issue is due to the if statement below
+    if player_one_score == 15:
+        print "Player 1 wins!"
+        return True
+    elif player_two_score == 15:
+        print "Player 2 wins!"
+        return True
+    return False
+
+def check_diagonal(board, magic_square):
+    player_one_score = 0
+    player_two_score = 0
+    for i in range(0, len(board)):
+        if board[i][i] == "X":
+            player_one_score += magic_square[i][i]
+        elif board[i][i] == "O":
+            player_two_score += magic_square[i][i]
+    if player_one_score == 15:
+        print "Player 1 wins!"
+        return True
+    elif player_two_score == 15:
+        print "Player 2 wins!"
+        return True
+    return False
+
+def check_anti_diagonal(board, magic_square):
+    player_one_score = 0
+    player_two_score = 0
+    for i in range(len(board), 0):
+        if board[i][i] == "X":
+            player_one_score += magic_square[i][i]
+        elif board[i][i] == "O":
+            player_two_score += magic_square[i][i]
     if player_one_score == 15:
         print "Player 1 wins!"
         return True
@@ -74,6 +104,9 @@ if __name__ == "__main__":
     # Used to determine a winner
     magic_square = [[8, 1, 6], [3, 5, 7], [4, 9, 2]]
 
+    # Used to count the number of moves taken to check for a draw
+    num_moves = 0
+
     # Prompt the user to see whether he/she would like to play the computer or not
     print "Welcome to TicTacToe"
     game_choice = raw_input("Would you like to play with another 'player', or the 'computer?' ")
@@ -94,16 +127,21 @@ if __name__ == "__main__":
         print_board(board)
 
         while not winner(board, magic_square):
-            if player_one_turn:
-                print "Player 1's turn"
-                make_move(board, player_one)
-                player_one_turn = False
-            else:
-                print "Player 2's turn"
-                make_move(board, player_two)
-                player_one_turn = True
+            if num_moves != 9:
+                if player_one_turn:
+                    print "Player 1's turn"
+                    make_move(board, player_one)
+                    player_one_turn = False
+                else:
+                    print "Player 2's turn"
+                    make_move(board, player_two)
+                    player_one_turn = True
 
-            print_board(board)
+                print_board(board)
+
+                num_moves += 1
+            else:
+                print "It's a Draw!"
 
     else:
         print "Playing against the computer"
