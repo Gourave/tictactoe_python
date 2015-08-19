@@ -1,7 +1,7 @@
 # Prints out the game board in a way the user can see it nicely
 def print_board(board):
     for row in board:
-        print " ".join(row)
+        print "\t\t" + " ".join(row)
 
 # Check to see whether there is a winner or not
 # TODO: Clean up the if loops, im not feeling the code...
@@ -108,8 +108,10 @@ if __name__ == "__main__":
     num_moves = 0
 
     # Prompt the user to see whether he/she would like to play the computer or not
-    print "Welcome to TicTacToe"
-    game_choice = raw_input("Would you like to play with another 'player', or the 'computer?' ")
+    print "\nWelcome to TicTacToe"
+    print_board(board)
+
+    game_choice = raw_input("\nWould you like to play with another 'player', or the 'computer?' ")
 
     # If the input was of incorrect format, ask the user again until he/she gets it right
     while game_choice != "player" and game_choice != "computer":
