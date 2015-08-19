@@ -94,6 +94,13 @@ def make_move(board, player):
     else:
         board[row][col] = player
 
+def ai_make_move(board, player):
+    row = -1
+    col = -1
+    # Put code here for AI to make a move
+
+
+
 if __name__ == "__main__":
     # Setup the game board
     board = []
@@ -144,11 +151,30 @@ if __name__ == "__main__":
                 num_moves += 1
             else:
                 print "It's a Draw!"
-
     else:
         print "Playing against the computer"
-        # Put code here for Ai game
-        # Create class for Ai game
+        player_one = "X"
+        player_two = "O"
+        player_one_turn = True
 
-    # Prints the game board out
+        print "Player 1: " + player_one
+        print "Player 2: " + player_two
 
+        print_board(board)
+
+        while not winner(board, magic_square):
+            if num_moves != 9:
+                if player_one_turn:
+                    print "Player 1's turn"
+                    make_move(board, player_one)
+                    player_one_turn = False
+                else:
+                    print "Player 2's turn"
+                    ai_make_move(board, player_two)
+                    player_one_turn = True
+
+                print_board(board)
+
+                num_moves += 1
+            else:
+                print "It's a Draw!"
