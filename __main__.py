@@ -4,7 +4,6 @@ def print_board(board):
         print "\t\t" + " ".join(row)
 
 # Check to see whether there is a winner or not
-# TODO: Clean up the if loops, im not feeling the code...
 def winner(board, magic_square):
     # Put code here to check diagonal and anti-diagonal lines
     return check_horizontal(board, magic_square) or check_vertical(board, magic_square) \
@@ -19,7 +18,6 @@ def check_horizontal(board, magic_square):
                 player_one_score += magic_square[row][col]
             elif board[row][col] == "O":
                 player_two_score += magic_square[row][col]
-    # TODO: Issue is due to the if statement below
     if player_one_score == 15:
         print "Player 1 wins!"
         return True
@@ -100,7 +98,6 @@ def ai_make_move(board, player):
     # Put code here for AI to make a move
 
 
-
 if __name__ == "__main__":
     # Setup the game board
     board = []
@@ -135,6 +132,7 @@ if __name__ == "__main__":
 
         print_board(board)
 
+        # If there is no winner, then check for a draw, if no draw, then make a move
         while not winner(board, magic_square):
             if num_moves != 9:
                 if player_one_turn:
@@ -162,6 +160,7 @@ if __name__ == "__main__":
 
         print_board(board)
 
+        # If there is no winner, then check for a draw, if no draw, then make a move
         while not winner(board, magic_square):
             if num_moves != 9:
                 if player_one_turn:
