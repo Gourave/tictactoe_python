@@ -1,3 +1,4 @@
+import sys
 from random import randint
 
 # Prints out the game board in a way the user can see it nicely
@@ -159,6 +160,7 @@ if __name__ == "__main__":
                 num_moves += 1
             else:
                 print "It's a Draw!"
+                sys.exit()
     else:
         print "Playing against the computer"
         player_one = "X"
@@ -187,3 +189,4 @@ if __name__ == "__main__":
                 num_moves += 1
             else:
                 print "It's a Draw!"
+                sys.exit()
