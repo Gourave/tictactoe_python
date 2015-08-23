@@ -1,16 +1,19 @@
 import sys
 from random import randint
 
+
 # Prints out the game board in a way the user can see it nicely
 def print_board(board):
     for row in board:
         print "\t\t" + " ".join(row)
 
+
 # Check to see whether there is a winner or not
 def winner(board, magic_square):
     # Put code here to check diagonal and anti-diagonal lines
     return check_horizontal(board, magic_square) or check_vertical(board, magic_square) \
-           or check_diagonal(board, magic_square) or check_anti_diagonal(board, magic_square)
+        or check_diagonal(board, magic_square) or check_anti_diagonal(board, magic_square)
+
 
 def check_horizontal(board, magic_square):
     player_one_score = 0
@@ -31,6 +34,7 @@ def check_horizontal(board, magic_square):
         return True
     return False
 
+
 def check_vertical(board, magic_square):
     player_one_score = 0
     player_two_score = 0
@@ -50,6 +54,7 @@ def check_vertical(board, magic_square):
         return True
     return False
 
+
 def check_diagonal(board, magic_square):
     player_one_score = 0
     player_two_score = 0
@@ -65,6 +70,7 @@ def check_diagonal(board, magic_square):
         print "Player 2 wins!"
         return True
     return False
+
 
 def check_anti_diagonal(board, magic_square):
     player_one_score = 0
@@ -106,6 +112,7 @@ def make_move(board, player):
         make_move(board, player)
     else:
         board[row][col] = player
+
 
 # TODO: Make the AI smarter, because it selects a random spot right now!
 def ai_make_move(board, player, board_checked):
