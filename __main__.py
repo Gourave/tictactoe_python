@@ -1,3 +1,5 @@
+from random import randint
+
 # Prints out the game board in a way the user can see it nicely
 def print_board(board):
     for row in board:
@@ -92,10 +94,18 @@ def make_move(board, player):
     else:
         board[row][col] = player
 
+# TODO: Make the AI smarter, because it selects a random spot right now!
 def ai_make_move(board, player):
     row = -1
     col = -1
-    # Put code here for AI to make a move
+    while not (-1 < row < 3):
+        row = randint(0, 2)
+    while not (-1 < col < 3):
+        col = randint(0, 2)
+    if board[row][col] != "-":
+        ai_make_move(board, player)
+    else:
+        board[row][col] = player
 
 
 if __name__ == "__main__":
@@ -155,8 +165,8 @@ if __name__ == "__main__":
         player_two = "O"
         player_one_turn = True
 
-        print "Player 1: " + player_one
-        print "Player 2: " + player_two
+        print "Player 1 (Human): " + player_one
+        print "Player 2 (Computer): " + player_two
 
         print_board(board)
 
