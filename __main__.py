@@ -99,6 +99,13 @@ def make_move(board, player):
 def ai_make_move(board, player):
     row = -1
     col = -1
+    for row_taken in range(0, len(board) - 1):
+        if player in board[row_taken]:
+            row = row_taken + 1
+            break
+        else:
+            row = row_taken
+            break
     while not (-1 < row < 3):
         row = randint(0, 2)
     while not (-1 < col < 3):
