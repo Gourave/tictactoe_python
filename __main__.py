@@ -24,8 +24,6 @@ def check_horizontal(board, magic_square):
                 player_one_score += magic_square[row][col]
             elif board[row][col] == "O":
                 player_two_score += magic_square[row][col]
-    player_one_score = 0
-    player_two_score = 0
     if player_one_score == 15:
         print "Player 1 wins!"
         return True
@@ -44,8 +42,6 @@ def check_vertical(board, magic_square):
                 player_one_score += magic_square[row][col]
             elif board[row][col] == "O":
                 player_two_score += magic_square[row][col]
-    player_one_score = 0
-    player_two_score = 0
     if player_one_score == 15:
         print "Player 1 wins!"
         return True
