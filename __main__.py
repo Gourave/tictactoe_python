@@ -85,9 +85,17 @@ def make_move(board, player):
     row = -1
     col = -1
     while not (-1 < row < 3):
-        row = int(raw_input("Row: "))
+        try:
+            row = int(raw_input("Row: "))
+        except ValueError:
+            row = -1
+            print "Please enter an integer"
     while not (-1 < col < 3):
-        col = int(raw_input("Col: "))
+        try:
+            col = int(raw_input("Col: "))
+        except ValueError:
+            col = -1
+            print "Please enter an integer"
     if board[row][col] != "-":
         print "This place has already been taken up. Please choose another spot."
         print_board(board)
@@ -133,17 +141,19 @@ if __name__ == "__main__":
     print "\nWelcome to TicTacToe"
     print_board(board)
 
-    game_choice = raw_input("\nWould you like to play with another 'player', or the 'computer?' ")
+    game_choice = raw_input("\nWould you like to play with another 'player', or the 'computer?' ").lower()
 
     # If the input was of incorrect format, ask the user again until he/she gets it right
     while game_choice != "player" and game_choice != "computer":
         print "Please enter either 'player' or 'computer'"
         game_choice = raw_input("Would you like to play with another player, or the computer? ")
 
+    player_one = "X"
+    player_two = "O"
+    player_one_turn = True
+
     if game_choice == "player":
-        player_one = "X"
-        player_two = "O"
-        player_one_turn = True
+        print "Playing PvP"
 
         print "Player 1: " + player_one
         print "Player 2: " + player_two
@@ -168,11 +178,9 @@ if __name__ == "__main__":
             else:
                 print "It's a Draw!"
                 sys.exit()
+
     else:
         print "Playing against the computer"
-        player_one = "X"
-        player_two = "O"
-        player_one_turn = True
 
         print "Player 1 (Human): " + player_one
         print "Player 2 (Computer): " + player_two
