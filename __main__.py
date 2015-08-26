@@ -115,6 +115,7 @@ def ai_make_move(board, player, board_checked):
     row = -1
     col = -1
     if not board_checked:
+        transpose = zip(*board)
         for row_taken in range(0, len(board)):
             if player in board[row_taken]:
                 if row_taken == 2:
@@ -123,6 +124,14 @@ def ai_make_move(board, player, board_checked):
             else:
                 row = row_taken
                 break
+        for col_taken in range(0, len(transpose)):
+            if player in transpose[col_taken]:
+                if col_taken == 2:
+                    col = -1
+                    break
+                else:
+                    col = col_taken
+                    break
     while not (-1 < row < 3):
         row = randint(0, 2)
     while not (-1 < col < 3):
@@ -182,11 +191,10 @@ if __name__ == "__main__":
                     player_one_turn = True
 
                 print_board(board)
-
-                num_moves += 1
             else:
                 print "It's a Draw!"
                 sys.exit()
+            num_moves += 1
 
     else:
         print "Playing against the computer"
@@ -209,8 +217,7 @@ if __name__ == "__main__":
                     player_one_turn = True
 
                 print_board(board)
-
-                num_moves += 1
             else:
                 print "It's a Draw!"
                 sys.exit()
+            num_moves += 1
