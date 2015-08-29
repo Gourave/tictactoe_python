@@ -24,12 +24,15 @@ def check_horizontal(board, magic_square):
                 player_one_score += magic_square[row][col]
             elif board[row][col] == "O":
                 player_two_score += magic_square[row][col]
-    if player_one_score == 15:
-        print "Player 1 wins!"
-        return True
-    elif player_two_score == 15:
-        print "Player 2 wins!"
-        return True
+        if player_one_score == 15:
+            print "Player 1 wins!"
+            return True
+        elif player_two_score == 15:
+            print "Player 2 wins!"
+            return True
+        player_one_score = 0
+        player_two_score = 0
+
     return False
 
 
@@ -42,12 +45,15 @@ def check_vertical(board, magic_square):
                 player_one_score += magic_square[row][col]
             elif board[row][col] == "O":
                 player_two_score += magic_square[row][col]
-    if player_one_score == 15:
-        print "Player 1 wins!"
-        return True
-    elif player_two_score == 15:
-        print "Player 2 wins!"
-        return True
+        if player_one_score == 15:
+            print "Player 1 wins!"
+            return True
+        elif player_two_score == 15:
+            print "Player 2 wins!"
+            return True
+        player_one_score = 0
+        player_two_score = 0
+
     return False
 
 
@@ -110,36 +116,37 @@ def make_move(board, player):
         board[row][col] = player
 
 
-# TODO: Make the AI smarter, because it selects a random spot right now!
-def ai_make_move(board, player, board_checked):
+# TODO: Make the AI smarter
+def ai_make_move(board, computer, human, board_checked):
     row = -1
     col = -1
     if not board_checked:
-        transpose = zip(*board)
         for row_taken in range(0, len(board)):
-            if player in board[row_taken]:
+            if computer in board[row_taken]:
                 if row_taken == 2:
                     row = -1
                     break
             else:
                 row = row_taken
                 break
+        # Take the transpose of the board to check the columns
+        transpose = zip(*board)
         for col_taken in range(0, len(transpose)):
-            if player in transpose[col_taken]:
+            if computer in transpose[col_taken]:
                 if col_taken == 2:
                     col = -1
                     break
-                else:
-                    col = col_taken
-                    break
+            else:
+                col = col_taken
+                break
     while not (-1 < row < 3):
         row = randint(0, 2)
     while not (-1 < col < 3):
         col = randint(0, 2)
     if board[row][col] != "-":
-        ai_make_move(board, player, True)
+        ai_make_move(board, computer, human, True)
     else:
-        board[row][col] = player
+        board[row][col] = computer
 
 
 if __name__ == "__main__":
@@ -213,7 +220,7 @@ if __name__ == "__main__":
                     player_one_turn = False
                 else:
                     print "Player 2's turn"
-                    ai_make_move(board, player_two, False)
+                    ai_make_move(board, player_two, player_one, False)
                     player_one_turn = True
 
                 print_board(board)
