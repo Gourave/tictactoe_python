@@ -148,6 +148,8 @@ def ai_make_move(board, computer, human, board_checked):
         ai_make_move(board, computer, human, True)
     else:
         board[row][col] = computer
+
+
 def main():
     # Setup the game board
     board = []
@@ -213,4 +215,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
