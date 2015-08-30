@@ -147,9 +147,7 @@ def ai_make_move(board, computer, human, board_checked):
         ai_make_move(board, computer, human, True)
     else:
         board[row][col] = computer
-
-
-if __name__ == "__main__":
+def main():
     # Setup the game board
     board = []
     for i in range(0, 3):
@@ -183,48 +181,35 @@ if __name__ == "__main__":
         print "Player 1: " + player_one
         print "Player 2: " + player_two
 
-        print_board(board)
-
-        # If there is no winner, then check for a draw, if no draw, then make a move
-        while not winner(board, magic_square):
-            if num_moves != 9:
-                if player_one_turn:
-                    print "Player 1's turn"
-                    make_move(board, player_one)
-                    player_one_turn = False
-                else:
-                    print "Player 2's turn"
-                    make_move(board, player_two)
-                    player_one_turn = True
-
-                print_board(board)
-            else:
-                print "It's a Draw!"
-                sys.exit()
-            num_moves += 1
-
     else:
         print "Playing against the computer"
 
         print "Player 1 (Human): " + player_one
         print "Player 2 (Computer): " + player_two
 
-        print_board(board)
+    print_board(board)
 
-        # If there is no winner, then check for a draw, if no draw, then make a move
-        while not winner(board, magic_square):
-            if num_moves != 9:
-                if player_one_turn:
-                    print "Player 1's turn"
-                    make_move(board, player_one)
-                    player_one_turn = False
-                else:
-                    print "Player 2's turn"
-                    ai_make_move(board, player_two, player_one, False)
-                    player_one_turn = True
-
-                print_board(board)
+    # If there is no winner, then check for a draw, if no draw, then make a move.
+    while not winner(board, magic_square):
+        if num_moves != 9:
+            if player_one_turn:
+                print "Player 1's turn"
+                make_move(board, player_one)
+                player_one_turn = False
             else:
-                print "It's a Draw!"
-                sys.exit()
-            num_moves += 1
+                print "Player 2's turn"
+                if game_choice == "player":
+                    make_move(board, player_two)
+                else:
+                    ai_make_move(board, player_two, player_one, False)
+                player_one_turn = True
+
+            print_board(board)
+        else:
+            print "It's a Draw!"
+            sys.exit()
+        num_moves += 1
+
+if __name__ == "__main__":
+    main()
+    
