@@ -121,6 +121,7 @@ def ai_make_move(board, computer, human, board_checked):
     row = -1
     col = -1
     if not board_checked:
+        # TODO: Add check for human piece for defensive moves
         for row_taken in range(0, len(board)):
             if computer in board[row_taken]:
                 if row_taken == 2:
