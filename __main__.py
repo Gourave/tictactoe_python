@@ -18,6 +18,8 @@ def winner(board, magic_square):
 def check_horizontal(board, magic_square):
     player_one_score = 0
     player_two_score = 0
+    # Count the value of the sum of the magic square of each row.
+    # If a row adds up to 15, then the player who's score is 15 won
     for row in range(0, len(board)):
         for col in range(0, len(board)):
             if board[row][col] == "X":
@@ -30,6 +32,7 @@ def check_horizontal(board, magic_square):
         elif player_two_score == 15:
             print "Player 2 wins!"
             return True
+        # Reset the counter to 0 if no score was 15 to prep for the next row
         player_one_score = 0
         player_two_score = 0
 
@@ -39,6 +42,8 @@ def check_horizontal(board, magic_square):
 def check_vertical(board, magic_square):
     player_one_score = 0
     player_two_score = 0
+    # Count the value of the sum of the magic square of each row.
+    # If a column adds up to 15, then the player who's score is 15 won
     for col in range(0, len(board)):
         for row in range(0, len(board)):
             if board[row][col] == "X":
@@ -51,6 +56,7 @@ def check_vertical(board, magic_square):
         elif player_two_score == 15:
             print "Player 2 wins!"
             return True
+        # Reset the counter to 0 if no score was 15 to prep for the next column
         player_one_score = 0
         player_two_score = 0
 
