@@ -66,6 +66,8 @@ def check_vertical(board, magic_square):
 def check_diagonal(board, magic_square):
     player_one_score = 0
     player_two_score = 0
+    # Check the diagonal of the board and
+    # increment the player scores accordingly
     for i in range(0, len(board)):
         if board[i][i] == "X":
             player_one_score += magic_square[i][i]
@@ -83,6 +85,8 @@ def check_diagonal(board, magic_square):
 def check_anti_diagonal(board, magic_square):
     player_one_score = 0
     player_two_score = 0
+    # Check the anti-diagonal of the board and
+    # increment player scores accordingly
     for i in range(len(board), 0):
         if board[i][i] == "X":
             player_one_score += magic_square[i][i]
@@ -127,7 +131,7 @@ def ai_make_move(board, computer, human, board_checked):
     row = -1
     col = -1
     if not board_checked:
-        # TODO: Add check for human piece for defensive moves
+        # TODO: Add defensive moves
         for row_taken in range(0, len(board)):
             if computer in board[row_taken]:
                 if row_taken == 2:
