@@ -133,7 +133,10 @@ def ai_make_move(board, computer, human, board_checked):
     if not board_checked:
         # TODO: Add defensive moves
         for row_taken in range(0, len(board)):
-            if computer in board[row_taken]:
+            if human in board[row_taken] and computer not in board[row_taken]:
+                row = row_taken
+                break
+            elif computer in board[row_taken]:
                 if row_taken == 2:
                     row = -1
                     break
@@ -143,6 +146,15 @@ def ai_make_move(board, computer, human, board_checked):
         # Take the transpose of the board to check the columns
         transpose = zip(*board)
         for col_taken in range(0, len(transpose)):
+            if human in transpose[col_taken]:
+                if board[row][col_taken + 1] != human:
+                    col = col_taken + 1
+                else:
+                    if col_taken == 0:
+                        col = 2
+                    else:
+                        col = col_taken - 1
+                break
             if computer in transpose[col_taken]:
                 if col_taken == 2:
                     col = -1
