@@ -146,7 +146,7 @@ def ai_make_move(board, computer, human, board_checked):
         # Take the transpose of the board to check the columns
         transpose = zip(*board)
         for col_taken in range(0, len(transpose)):
-            if human in transpose[col_taken]:
+            if human in transpose[col_taken] and computer not in transpose[col_taken]:
                 if board[row][col_taken + 1] != human:
                     col = col_taken + 1
                 else:
