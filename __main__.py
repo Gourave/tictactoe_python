@@ -15,6 +15,7 @@ def winner(board, magic_square):
         or check_diagonal(board, magic_square) or check_anti_diagonal(board, magic_square)
 
 
+# Checks if pieces aligned horizontally are a win
 def check_horizontal(board, magic_square):
     player_one_score = 0
     player_two_score = 0
@@ -39,6 +40,7 @@ def check_horizontal(board, magic_square):
     return False
 
 
+# Checks if pieces aligned vertically are a win
 def check_vertical(board, magic_square):
     player_one_score = 0
     player_two_score = 0
@@ -63,6 +65,7 @@ def check_vertical(board, magic_square):
     return False
 
 
+# Checks if pieces aligned diagonally are a win
 def check_diagonal(board, magic_square):
     player_one_score = 0
     player_two_score = 0
@@ -82,6 +85,7 @@ def check_diagonal(board, magic_square):
     return False
 
 
+# Checks if pieces aligned on the anti diagonal are a win
 def check_anti_diagonal(board, magic_square):
     player_one_score = 0
     player_two_score = 0
