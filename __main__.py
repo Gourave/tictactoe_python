@@ -1,113 +1,17 @@
 import sys
-from random import randint
+from Ai import Ai
+from Game import Game
 
 
-# Prints out the game board in a way the user can see it nicely
 def print_board(board):
+    # Prints out the game board in a way the user can see it nicely
     for row in board:
         print "\t\t" + " ".join(row)
 
 
-# Check to see whether there is a winner or not
-def winner(board, magic_square):
-    # Put code here to check diagonal and anti-diagonal lines
-    return check_horizontal(board, magic_square) or check_vertical(board, magic_square) \
-        or check_diagonal(board, magic_square) or check_anti_diagonal(board, magic_square)
-
-
-# Checks if pieces aligned horizontally are a win
-def check_horizontal(board, magic_square):
-    player_one_score = 0
-    player_two_score = 0
-    # Count the value of the sum of the magic square of each row.
-    # If a row adds up to 15, then the player who's score is 15 won
-    for row in range(0, len(board)):
-        for col in range(0, len(board)):
-            if board[row][col] == "X":
-                player_one_score += magic_square[row][col]
-            elif board[row][col] == "O":
-                player_two_score += magic_square[row][col]
-        if player_one_score == 15:
-            print "Player 1 wins!"
-            return True
-        elif player_two_score == 15:
-            print "Player 2 wins!"
-            return True
-        # Reset the counter to 0 if no score was 15 to prep for the next row
-        player_one_score = 0
-        player_two_score = 0
-
-    return False
-
-
-# Checks if pieces aligned vertically are a win
-def check_vertical(board, magic_square):
-    player_one_score = 0
-    player_two_score = 0
-    # Count the value of the sum of the magic square of each row.
-    # If a column adds up to 15, then the player who's score is 15 won
-    for col in range(0, len(board)):
-        for row in range(0, len(board)):
-            if board[row][col] == "X":
-                player_one_score += magic_square[row][col]
-            elif board[row][col] == "O":
-                player_two_score += magic_square[row][col]
-        if player_one_score == 15:
-            print "Player 1 wins!"
-            return True
-        elif player_two_score == 15:
-            print "Player 2 wins!"
-            return True
-        # Reset the counter to 0 if no score was 15 to prep for the next column
-        player_one_score = 0
-        player_two_score = 0
-
-    return False
-
-
-# Checks if pieces aligned diagonally are a win
-def check_diagonal(board, magic_square):
-    player_one_score = 0
-    player_two_score = 0
-    # Check the diagonal of the board and
-    # increment the player scores accordingly
-    for i in range(0, len(board)):
-        if board[i][i] == "X":
-            player_one_score += magic_square[i][i]
-        elif board[i][i] == "O":
-            player_two_score += magic_square[i][i]
-    if player_one_score == 15:
-        print "Player 1 wins!"
-        return True
-    elif player_two_score == 15:
-        print "Player 2 wins!"
-        return True
-    return False
-
-
-# Checks if pieces aligned on the anti diagonal are a win
-def check_anti_diagonal(board, magic_square):
-    player_one_score = 0
-    player_two_score = 0
-    # Check the anti-diagonal of the board and
-    # increment player scores accordingly
-    for i in range(len(board), 0):
-        if board[i][i] == "X":
-            player_one_score += magic_square[i][i]
-        elif board[i][i] == "O":
-            player_two_score += magic_square[i][i]
-    if player_one_score == 15:
-        print "Player 1 wins!"
-        return True
-    elif player_two_score == 15:
-        print "Player 2 wins!"
-        return True
-    return False
-
-
-# Prompt the user to make a move and take up the spot that was specified by
-# the players piece
 def make_move(board, player):
+    # Prompt the user to make a move and take up the spot that was specified by
+    # the players piece
     row = -1
     col = -1
     while not (-1 < row < 3):
@@ -128,82 +32,6 @@ def make_move(board, player):
         make_move(board, player)
     else:
         board[row][col] = player
-
-
-# TODO: Make the AI smarter
-def ai_make_move(board, computer, human, board_checked):
-    row = -1
-    col = -1
-    if not board_checked:
-        # TODO: Add defensive moves
-        for row_taken in range(0, len(board)):
-            if human in board[row_taken] and computer not in board[row_taken]:
-                if row_taken == 2:
-                    row = 0
-                else:
-                    row = row_taken + 1
-                break
-            elif computer in board[row_taken]:
-                if row_taken == 2:
-                    row = -1
-                    break
-            else:
-                row = row_taken
-                break
-        # Take the transpose of the board to check the columns
-        transpose = zip(*board)
-        for col_taken in range(0, len(transpose)):
-            # Check for human piece and try to block it
-            if human in transpose[col_taken] and computer not in transpose[col_taken]:
-                block = check_num_human_in_row(board, human, computer)
-                if board[row][col_taken] != human and block:
-                    col = col_taken
-                #TODO: Fix out of bounds error with col_taken + 1
-                elif board[row][col_taken + 1] != human:
-                    if row == 0:
-                        row = 2
-                    else:
-                        row -= 1
-                    if col_taken == 2:
-                        col = 0
-                    else:
-                        col = col_taken + 1
-                else:
-                    if col_taken == 0:
-                        col = 2
-                    else:
-                        col = col_taken - 1
-                break
-            if computer in transpose[col_taken]:
-                if col_taken == 2:
-                    col = -1
-                    break
-            else:
-                col = col_taken
-                break
-    while not (-1 < row < 3):
-        row = randint(0, 2)
-    while not (-1 < col < 3):
-        col = randint(0, 2)
-    if board[row][col] != "-":
-        ai_make_move(board, computer, human, True)
-    else:
-        board[row][col] = computer
-
-
-# Check for the number of humans in a certain row
-def check_num_human_in_row(board, human, computer):
-    num_human = 0
-    for row in range(0, len(board)):
-        num_human = 0
-        for col in range(0, len(board)):
-            if human == board[row][col]:
-                num_human += 1
-                if num_human >= 2:
-                    return True
-            elif computer == board[row][col]:
-                num_human = 0
-    return False
 
 
 def main():
@@ -249,7 +77,7 @@ def main():
     print_board(board)
 
     # If there is no winner, then check for a draw, if no draw, then make a move.
-    while not winner(board, magic_square):
+    while not Game.winner(board, magic_square):
         if num_moves != 9:
             if player_one_turn:
                 print "Player 1's turn"
@@ -260,7 +88,7 @@ def main():
                 if game_choice == "player":
                     make_move(board, player_two)
                 else:
-                    ai_make_move(board, player_two, player_one, False)
+                    Ai.make_move(board, player_two, player_one, False)
                 player_one_turn = True
 
             print_board(board)
